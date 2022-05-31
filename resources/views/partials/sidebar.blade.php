@@ -20,7 +20,7 @@
                     {!! $configData['horizontal_menu'] ? '' : 'data-widget="treeview"' !!}
                      style="padding-top: 10px">
                     {!! admin_section(Dcat\Admin\Admin::SECTION['LEFT_SIDEBAR_MENU_TOP']) !!}
-
+                    <!--- 左侧二级菜单 -->
                     {!! admin_section(Dcat\Admin\Admin::SECTION['LEFT_SIDEBAR_MENU']) !!}
 
                     {!! admin_section(Dcat\Admin\Admin::SECTION['LEFT_SIDEBAR_MENU_BOTTOM']) !!}
