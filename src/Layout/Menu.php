@@ -41,13 +41,26 @@ class Menu
 
     protected $view = 'admin::partials.menu';
 
+    protected $sidebarMenuView = 'admin::partials.sidebar-menu';
+    protected $navbarMenuView = 'admin::partials.navbar-menu';
+
+    protected $sidebarMenuHtml = '';
+    protected $navbarMenuHtml = '';
+
     public function register()
     {
+        $menuModel = config('admin.database.menu_model');
+        $nodes = (new $menuModel())->allNodes()->toArray();
+        $this->toHtml($nodes);
         if (! admin_has_default_section(Admin::SECTION['LEFT_SIDEBAR_MENU'])) {
             admin_inject_default_section(Admin::SECTION['LEFT_SIDEBAR_MENU'], function () {
-                $menuModel = config('admin.database.menu_model');
+                return $this->sidebarMenuHtml;
+            });
+        }
 
-                return $this->toHtml((new $menuModel())->allNodes()->toArray());
+        if(! admin_has_default_section(Admin::SECTION['NAVBAR_MENU'])) {
+            admin_inject_default_section(Admin::SECTION['NAVBAR_MENU'], function () {
+                return $this->navbarMenuHtml;
             });
         }
 
@@ -78,15 +91,27 @@ class Menu
      *
      * @throws \Throwable
      */
-    public function toHtml($nodes)
-    {
-        $html = '';
+    // public function toHtml($nodes)
+    // {
+    //     $html = '';
 
-        foreach (Helper::buildNestedArray($nodes) as $item) {
-            $html .= $this->render($item);
+    //     foreach (Helper::buildNestedArray($nodes) as $item) {
+    //         $html .= $this->render($item);
+    //     }
+
+    //     return $html;
+    // }
+
+    public function toHtml($nodes) {
+        $nodes = Helper::buildNestedArray($nodes);
+        foreach ($nodes as $item) {
+            $this->navbarMenuHtml .= view($this->navbarMenuView, ['item' => &$item, 'builder' => $this])->render();
+            if(isset($item['children'])) {
+                foreach($item['children'] as $child) {
+                    $this->sidebarMenuHtml .= view($this->sidebarMenuView, ['item' => &$child, 'builder' => $this])->render();
+                }
+            }
         }
-
-        return $html;
     }
 
     /**

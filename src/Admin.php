@@ -53,6 +53,9 @@ class Admin
         // 顶部导航栏底下
         'NAVBAR_AFTER' => 'ADMIN_NAVBAR_AFTER',
 
+        //顶部导航栏一级菜单
+        'NAVBAR_MENU' => 'ADMIN_NAVBAR_MENU',
+
         // 侧边栏顶部用户信息面板
         'LEFT_SIDEBAR_USER_PANEL' => 'ADMIN_LEFT_SIDEBAR_USER_PANEL',
         // 菜单栏

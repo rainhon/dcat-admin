@@ -37,6 +37,12 @@
                 </div>
                 @endif
 
+                <div class="d-md-block horizontal-navbar-brand justify-content-center text-center">
+                    <ul class="nav navbar-nav flex-row">
+                        {!! admin_section(Dcat\Admin\Admin::SECTION['NAVBAR_MENU']) !!}
+                    </ul>
+                </div>
+
                 <div class="navbar-right d-flex align-items-center">
                     {!! Dcat\Admin\Admin::navbar()->render() !!}
 
