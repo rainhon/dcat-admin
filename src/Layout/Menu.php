@@ -107,9 +107,7 @@ class Menu
         foreach ($nodes as $item) {
             $this->navbarMenuHtml .= view($this->navbarMenuView, ['item' => &$item, 'builder' => $this])->render();
             if(isset($item['children'])) {
-                foreach($item['children'] as $child) {
-                    $this->sidebarMenuHtml .= view($this->sidebarMenuView, ['item' => &$child, 'builder' => $this])->render();
-                }
+                $this->sidebarMenuHtml .= view($this->sidebarMenuView, ['items' => &$item['children'], 'parentItem' => $item, 'builder' => $this])->render();
             }
         }
     }
@@ -151,25 +149,22 @@ class Menu
             $path = request()->path();
         }
 
-        if (empty($item['children'])) {
-            if (empty($item['uri'])) {
-                return false;
-            }
-
-            return trim($this->getPath($item['uri']), '/') == $path;
+        if (!empty($item['uri'])) {
+            return $this->clearPath($item['uri']) == $path;
         }
 
-        foreach ($item['children'] as $v) {
-            if ($path == trim($this->getPath($v['uri']), '/')) {
-                return true;
-            }
-            if (! empty($v['children'])) {
-                if ($this->isActive($v, $path)) {
+        if(!empty($item['children'])) {
+            foreach ($item['children'] as $v) {
+                if ($path == $this->clearPath($v['uri'])) {
                     return true;
+                }
+                if (! empty($v['children'])) {
+                    if ($this->isActive($v, $path)) {
+                        return true;
+                    }
                 }
             }
         }
-
         return false;
     }
 
@@ -290,6 +285,12 @@ class Menu
         return $uri
             ? (url()->isValidUrl($uri) ? $uri : admin_base_path($uri))
             : $uri;
+    }
+
+    public function clearPath($uri) {
+        $queryIndex = strpos($uri, '?');
+        $uri = $queryIndex ? substr($uri, 0, $queryIndex) : $uri;
+        return trim($this->getPath($uri), '/');
     }
 
     /**
