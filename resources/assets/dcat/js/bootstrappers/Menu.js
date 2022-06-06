@@ -7,6 +7,38 @@ export default class Menu {
 
     // 菜单点击选中效果
     init() {
+
+        //顶部一级菜单
+        let $navbar = $('.navbar-nav'),
+            $navbarItems = $navbar.find('li.nav-item>a'),
+            $sidebarMenuUls = $('.sidebar-menu-ul');
+
+        $navbarItems.on('click', function () {
+            $navbarItems.removeClass('active');
+            let $currentId = $(this).data('id');
+            let $thisNavbarItem = $(this);
+            $(this).addClass('active');
+            if($sidebarMenuUls.length) {
+                $.each($sidebarMenuUls, function (index, item) {
+                    let $item = $(item);
+                    if($item.data('id') == $currentId) {
+                        $item.addClass('active');
+                        console.log($item.find('li.nav-item>a'));
+                        $item.find('li.nav-item>a').each(function (a_index, a) {
+                            console.log(a)
+                            if($(a).attr('href') == $thisNavbarItem.attr('href')) {
+                                $(a).addClass('active');
+                            }else{
+                                $(a).removeClass('active');
+                            }
+                        });
+                    }else{
+                        $item.removeClass('active');
+                    }
+                });
+            }
+        });
+
         if (! $('.main-sidebar .sidebar').length) {
             return;
         }

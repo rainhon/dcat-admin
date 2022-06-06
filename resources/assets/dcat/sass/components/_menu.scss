@@ -52,6 +52,28 @@
 }
 
 // 菜单
+.header-navbar .navbar-container ul.nav li>a.nav-link {
+  padding: 1.6rem 0.5rem 0.75rem 1rem;
+}
+
+.navbar-light .navbar-nav .active.nav-link {
+  background-color: rgba(0,0,0,.03);
+  border-bottom: 0.5rem solid $primary-darker;
+}
+
+.sidebar-menu-ul:not(.active){
+  display:none;
+}
+
+li.module-title {
+  font-size: 1.2rem;
+  padding: 1rem 0 1rem 0.5rem;
+}
+
+.sidebar {
+  background-color: #F1F6FF;
+}
+
 .main-menu.menu-shadow {
   box-shadow: $menu-shadow;
 }
@@ -99,9 +121,13 @@ body.sidebar-collapse {
 }
 
 [class*=sidebar-light-] .nav-treeview>.nav-item>.nav-link.active, [class*=sidebar-light-] .nav-treeview>.nav-item>.nav-link.active:hover {
-  color: $primary-darker;
-  background: none;
+  color: #fff;
+  background: $primary-darker !important;
   box-shadow: 0 0;
+}
+
+.nav.nav-pills .nav-item .nav-link {
+  margin-right: 1.5rem;
 }
 
 .nav-treeview > .nav-item > .nav-link p i {
@@ -109,8 +135,8 @@ body.sidebar-collapse {
 }
 
 .sidebar-light-primary .nav-item > .nav-link.active {
-  background: none;
-  color: $primary-darker !important;
+  background: $primary-darker !important;
+  color: #fff;
   font-weight: bold;
   box-shadow: 0 0;
 }

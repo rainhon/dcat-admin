@@ -4,13 +4,16 @@
     $horizontal = config('admin.layout.horizontal_menu');
 
     $defaultIcon = config('admin.menu.default_icon', 'feather icon-circle');
+
+    $item['isActive'] = $builder->isActive($item);
 @endphp
 
 @if($builder->visible($item))
     <li class="nav-item">
-        <a data-id="{{ $item['id'] ?? '' }}" @if(mb_strpos($item['uri'], '://') !== false) target="_blank" @endif
+        <a @if(mb_strpos($item['uri'], '://') !== false) target="_blank" @endif
             href="{{ $builder->getUrl($item['uri']) }}"
-            class="nav-link {!! $builder->isActive($item) ? 'active' : '' !!}">
+            class="nav-link {!! $item['isActive'] ? 'active' : '' !!}"
+            data-id="{{ $item['id'] ?? '' }}" >
             {!! str_repeat('&nbsp;', $depth) !!}
             <p>
                 {!! $builder->translate($item['title']) !!}

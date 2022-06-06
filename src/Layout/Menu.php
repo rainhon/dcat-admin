@@ -13,25 +13,25 @@ class Menu
             'id'        => 1,
             'title'     => 'Helpers',
             'icon'      => 'fa fa-keyboard-o',
-            'uri'       => '',
+            'uri'       => 'auth/extensions',
             'parent_id' => 0,
         ],
         [
-            'id'        => 2,
+            'id'        => 999001,
             'title'     => 'Extensions',
             'icon'      => '',
             'uri'       => 'auth/extensions',
             'parent_id' => 1,
         ],
         [
-            'id'        => 3,
+            'id'        => 999002,
             'title'     => 'Scaffold',
             'icon'      => '',
             'uri'       => 'helpers/scaffold',
             'parent_id' => 1,
         ],
         [
-            'id'        => 4,
+            'id'        => 999003,
             'title'     => 'Icons',
             'icon'      => '',
             'uri'       => 'helpers/icons',
@@ -51,6 +51,9 @@ class Menu
     {
         $menuModel = config('admin.database.menu_model');
         $nodes = (new $menuModel())->allNodes()->toArray();
+        if (config('app.debug') && config('admin.helpers.enable', true)) {
+            $nodes = array_merge($nodes, static::$helperNodes);
+        }
         $this->toHtml($nodes);
         if (! admin_has_default_section(Admin::SECTION['LEFT_SIDEBAR_MENU'])) {
             admin_inject_default_section(Admin::SECTION['LEFT_SIDEBAR_MENU'], function () {
@@ -64,9 +67,7 @@ class Menu
             });
         }
 
-        if (config('app.debug') && config('admin.helpers.enable', true)) {
-            $this->add(static::$helperNodes, 20);
-        }
+
     }
 
     /**
@@ -78,7 +79,7 @@ class Menu
      */
     public function add(array $nodes = [], int $priority = 10)
     {
-        admin_inject_section(Admin::SECTION['LEFT_SIDEBAR_MENU_BOTTOM'], function () use (&$nodes) {
+        admin_inject_section(Admin::SECTION['LEFT_SIDEBAR_MENU'], function () use (&$nodes) {
             return $this->toHtml($nodes);
         }, true, $priority);
     }
@@ -104,11 +105,9 @@ class Menu
 
     public function toHtml($nodes) {
         $nodes = Helper::buildNestedArray($nodes);
-        foreach ($nodes as $item) {
-            $this->navbarMenuHtml .= view($this->navbarMenuView, ['item' => &$item, 'builder' => $this])->render();
-            if(isset($item['children'])) {
-                $this->sidebarMenuHtml .= view($this->sidebarMenuView, ['items' => &$item['children'], 'parentItem' => $item, 'builder' => $this])->render();
-            }
+        foreach ($nodes as &$item) {
+            $this->navbarMenuHtml .= view($this->navbarMenuView, ['item' => $item, 'builder' => $this])->render();
+            $this->sidebarMenuHtml .= view($this->sidebarMenuView, ['items' => $item['children'] ?? [], 'parentItem' => &$item, 'builder' => $this])->render();
         }
     }
 
@@ -146,11 +145,13 @@ class Menu
     public function isActive($item, ?string $path = null)
     {
         if (empty($path)) {
-            $path = request()->path();
-        }
+            $path = trim(request()->getRequestUri(), '/');
+        }   
 
         if (!empty($item['uri'])) {
-            return $this->clearPath($item['uri']) == $path;
+            if($this->clearPath($item['uri']) == $path) {
+                return true;
+            }
         }
 
         if(!empty($item['children'])) {
@@ -288,8 +289,8 @@ class Menu
     }
 
     public function clearPath($uri) {
-        $queryIndex = strpos($uri, '?');
-        $uri = $queryIndex ? substr($uri, 0, $queryIndex) : $uri;
+        // $queryIndex = strpos($uri, '?');
+        // $uri = $queryIndex ? substr($uri, 0, $queryIndex) : $uri;
         return trim($this->getPath($uri), '/');
     }
 

@@ -1,4 +1,8 @@
-<ul @if(!$builder->isActive($parentItem))  style="display:none;"  @endif>
+<ul class="sidebar-menu-ul @if($builder->isActive($parentItem)) active  @endif" data-id="{{ $parentItem['id'] }}" >
+    <li class="module-title">
+        <i class="fa fa-fw {{ $parentItem['icon'] ?: $defaultIcon }}"></i>
+        {!! $builder->translate($parentItem['title']) !!}
+    </li>
     @foreach($items as $item)
         @php
             $depth = $item['depth'] ?? 0;
@@ -6,6 +10,8 @@
             $horizontal = config('admin.layout.horizontal_menu');
 
             $defaultIcon = config('admin.menu.default_icon', 'feather icon-circle');
+
+            $item['isActive'] = $builder->isActive($item);
         @endphp
         
         @if($builder->visible($item))
@@ -13,19 +19,19 @@
                 <li class="nav-item">
                     <a data-id="{{ $item['id'] ?? '' }}" @if(mb_strpos($item['uri'], '://') !== false) target="_blank" @endif
                     href="{{ $builder->getUrl($item['uri']) }}"
-                    class="nav-link {!! $builder->isActive($item) ? 'active' : '' !!}">
-                        {!! str_repeat('&nbsp;', $depth) !!}<i class="fa fa-fw {{ $item['icon'] ?: $defaultIcon }}"></i>
+                    class="nav-link {!! $item['isActive'] ? 'active' : '' !!}">
+                        {!! str_repeat('&nbsp;', $depth) !!}
                         <p>
                             {!! $builder->translate($item['title']) !!}
                         </p>
                     </a>
                 </li>
             @else
-                <li class="{{ $horizontal ? 'dropdown' : 'has-treeview' }} {{ $depth > 0 ? 'dropdown-submenu' : '' }} nav-item {{ $builder->isActive($item) ? 'menu-open' : '' }}">
+                <li class="{{ $horizontal ? 'dropdown' : 'has-treeview' }} {{ $depth > 0 ? 'dropdown-submenu' : '' }} nav-item {{ $item['isActive'] ? 'menu-open' : '' }}">
                     <a href="#"  data-id="{{ $item['id'] ?? '' }}"
-                    class="nav-link {{ $builder->isActive($item) ? ($horizontal ? 'active' : '') : '' }}
+                    class="nav-link {{ $item['isActive'] ? ($horizontal ? 'active' : '') : '' }}
                             {{ $horizontal ? 'dropdown-toggle' : '' }}">
-                        {!! str_repeat('&nbsp;', $depth) !!}<i class="fa fa-fw {{ $item['icon'] ?: $defaultIcon }}"></i>
+                        {!! str_repeat('&nbsp;', $depth) !!}
                         <p>
                             {!! $builder->translate($item['title']) !!}
 
