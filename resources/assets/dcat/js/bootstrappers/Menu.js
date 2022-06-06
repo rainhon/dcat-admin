@@ -23,9 +23,7 @@ export default class Menu {
                     let $item = $(item);
                     if($item.data('id') == $currentId) {
                         $item.addClass('active');
-                        console.log($item.find('li.nav-item>a'));
                         $item.find('li.nav-item>a').each(function (a_index, a) {
-                            console.log(a)
                             if($(a).attr('href') == $thisNavbarItem.attr('href')) {
                                 $(a).addClass('active');
                             }else{

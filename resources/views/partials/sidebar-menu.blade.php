@@ -1,4 +1,7 @@
 <ul class="sidebar-menu-ul @if($builder->isActive($parentItem)) active  @endif" data-id="{{ $parentItem['id'] }}" >
+    @php
+        $defaultIcon = config('admin.menu.default_icon', 'feather icon-circle');
+    @endphp
     <li class="module-title">
         <i class="fa fa-fw {{ $parentItem['icon'] ?: $defaultIcon }}"></i>
         {!! $builder->translate($parentItem['title']) !!}
@@ -8,8 +11,6 @@
             $depth = $item['depth'] ?? 0;
 
             $horizontal = config('admin.layout.horizontal_menu');
-
-            $defaultIcon = config('admin.menu.default_icon', 'feather icon-circle');
 
             $item['isActive'] = $builder->isActive($item);
         @endphp

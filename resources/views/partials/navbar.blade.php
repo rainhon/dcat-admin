@@ -8,17 +8,6 @@
 
     <div class="navbar-wrapper">
         <div class="navbar-container content">
-            @if(! $configData['horizontal_menu'])
-            <div class="mr-auto float-left bookmark-wrapper d-flex align-items-center">
-                <ul class="nav navbar-nav">
-                    <li class="nav-item mr-auto">
-                        <a class="nav-link menu-toggle" data-widget="pushmenu" style="cursor: pointer;">
-                            <i class="fa fa-bars font-md-2"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            @endif
 
             <div class="navbar-collapse d-flex justify-content-between">
                 <div class="navbar-left d-flex align-items-center">
@@ -29,7 +18,7 @@
                 <div class="d-md-block horizontal-navbar-brand justify-content-center text-center">
                     <ul class="nav navbar-nav flex-row">
                         <li class="nav-item mr-auto">
-                            <a href="{{ admin_url('/') }}" class="waves-effect waves-light">
+                            <a href="{{ admin_url('/') }}" class="waves-effect waves-light" data-no-pjax="1">
                                 <span class="logo-lg">{!! config('admin.logo') !!}</span>
                             </a>
                         </li>

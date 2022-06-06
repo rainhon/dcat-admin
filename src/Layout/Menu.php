@@ -37,6 +37,20 @@ class Menu
             'uri'       => 'helpers/icons',
             'parent_id' => 1,
         ],
+        [
+            'id'        => 999004,
+            'title'     => '权限',
+            'icon'      => '',
+            'uri'       => 'auth/permissions',
+            'parent_id' => 1,
+        ],
+        [
+            'id'        => 999005,
+            'title'     => '菜单',
+            'icon'      => '',
+            'uri'       => 'auth/menu',
+            'parent_id' => 1,
+        ],
     ];
 
     protected $view = 'admin::partials.menu';

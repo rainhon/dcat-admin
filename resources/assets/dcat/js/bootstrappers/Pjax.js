@@ -15,6 +15,9 @@ export default class Pjax {
         $.pjax.defaults.maxCacheLength = 0;
 
         $('a:not(a[target="_blank"])').click(function (event) {
+            if($(this).data('no-pjax')) {
+                return;
+            }
             $.pjax.click(event, container, { fragment: 'body' });
         });
 

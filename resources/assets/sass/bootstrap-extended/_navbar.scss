@@ -941,11 +941,11 @@ body {
 
 // for width of navbar in fixed-top
 @media(max-width: 1201px) {
-  .header-navbar {
-    &.fixed-top {
-      left: 0;
-    }
-  }
+  // .header-navbar {
+  //   &.fixed-top {
+  //     left: 0;
+  //   }
+  // }
 
   .horizontal-layout {
     .header-navbar {
