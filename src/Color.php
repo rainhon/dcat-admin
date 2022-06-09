@@ -101,6 +101,13 @@ class Color
                 'link'           => '#458769',
             ],
         ],
+        'sky-blue' => [
+            'colors' => [
+                'primary'        => '#1890FF',
+                'primary-darker' => '#237BFF',
+                'link'           => '#62a8ea',
+            ],
+        ],
     ];
 
     /**
@@ -185,6 +192,9 @@ class Color
         'dark-mode-color' => '#222233',
         'dark-mode-color2' => '#1e1e2d',
         'dark-mode-font' => '##a8a9bb',
+
+        //天蓝色
+        'sky-blue' => '#0a6cff',
     ];
 
     /**

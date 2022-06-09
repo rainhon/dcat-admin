@@ -13,7 +13,7 @@ require('dotenv').config();
  */
 const glob = require('glob')
 
-let theme = null;
+let theme = 'sky-blue';
 
 let distPath = mix.inProduction() ? 'resources/dist' : 'resources/pre-dist';
 
@@ -38,6 +38,13 @@ function dcatDistPath(path) {
   return distPath + '/dcat/' + path;
 }
 
+if(!mix.inProduction()) {
+  mix.webpackConfig({
+    devtool: 'inline-source-map',
+  });
+}
+
+mix.sourceMaps();
 
 /*
  |--------------------------------------------------------------------------
@@ -49,15 +56,15 @@ mix.copyDirectory('resources/assets/images', distPath + '/images');
 mix.copyDirectory('resources/assets/fonts', distPath + '/fonts');
 
 // AdminLTE3.0
-mix.sass('resources/assets/adminlte/scss/AdminLTE.scss', themeCss('adminlte/adminlte')).sourceMaps();
-mix.js('resources/assets/adminlte/js/AdminLTE.js', distPath + '/adminlte/adminlte.js').sourceMaps();
+mix.sass('resources/assets/adminlte/scss/AdminLTE.scss', themeCss('adminlte/adminlte'));
+mix.js('resources/assets/adminlte/js/AdminLTE.js', distPath + '/adminlte/adminlte.js');
 
 // 复制第三方插件文件夹
 mix.copyDirectory(dcatPath('plugins'), dcatDistPath('plugins'));
 // 打包app.js
-mix.js(dcatPath('js/dcat-app.js'), dcatDistPath('js/dcat-app.js')).sourceMaps();
+mix.js(dcatPath('js/dcat-app.js'), dcatDistPath('js/dcat-app.js'));
 // 打包app.scss
-mix.sass(dcatPath('sass/dcat-app.scss'), themeCss('dcat/css/dcat-app')).sourceMaps();
+mix.sass(dcatPath('sass/dcat-app.scss'), themeCss('dcat/css/dcat-app'));
 mix.copy(dcatPath('sass/nunito.css'), `${distPath}/dcat/css/nunito.css`);
 
 // 打包所有 extra 里面的所有js和css

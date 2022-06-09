@@ -36,7 +36,7 @@ class MinifyCommand extends Command
         'blue'        => '#6d8be6',
         'blue-light'  => '#62a8ea',
         'green'       => '#4e9876',
-        'sky-blue'    => '#237bff',
+        'sky-blue'    => '#1890FF',
     ];
 
     /**

@@ -26,8 +26,8 @@
                 </div>
                 @endif
 
-                <div class="d-md-block horizontal-navbar-brand justify-content-center text-center">
-                    <ul class="nav navbar-nav flex-row">
+                <div class="d-md-block horizontal-navbar-brand justify-content-center text-center flex-grow-1">
+                    <ul class="nav navbar-nav flex-row justify-content-around">
                         {!! admin_section(Dcat\Admin\Admin::SECTION['NAVBAR_MENU']) !!}
                     </ul>
                 </div>

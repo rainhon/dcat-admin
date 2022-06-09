@@ -9,7 +9,7 @@
 @endphp
 
 @if($builder->visible($item))
-    <li class="nav-item">
+    <li class="nav-item flex-grow-1">
         <a @if(mb_strpos($item['uri'], '://') !== false) target="_blank" @endif
             href="{{ $builder->getUrl($item['uri']) }}"
             class="nav-link {!! $item['isActive'] ? 'active' : '' !!}"
