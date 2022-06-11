@@ -20,7 +20,8 @@
                 <li class="nav-item">
                     <a data-id="{{ $item['id'] ?? '' }}" @if(mb_strpos($item['uri'], '://') !== false) target="_blank" @endif
                     href="{{ $builder->getUrl($item['uri']) }}"
-                    class="nav-link {!! $item['isActive'] ? 'active' : '' !!}">
+                    class="nav-link {!! $item['isActive'] ? 'active' : '' !!}"
+                    data-no-pjax="{{ $item['no_pjax'] ?? 0 }}" >
                         {!! str_repeat('&nbsp;', $depth) !!}
                         <p>
                             {!! $builder->translate($item['title']) !!}
@@ -31,7 +32,8 @@
                 <li class="{{ $horizontal ? 'dropdown' : 'has-treeview' }} {{ $depth > 0 ? 'dropdown-submenu' : '' }} nav-item {{ $item['isActive'] ? 'menu-open' : '' }}">
                     <a href="#"  data-id="{{ $item['id'] ?? '' }}"
                     class="nav-link {{ $item['isActive'] ? ($horizontal ? 'active' : '') : '' }}
-                            {{ $horizontal ? 'dropdown-toggle' : '' }}">
+                            {{ $horizontal ? 'dropdown-toggle' : '' }}"
+                            data-no-pjax="{{ $item['no_pjax'] ?? 0 }}">
                         {!! str_repeat('&nbsp;', $depth) !!}
                         <p>
                             {!! $builder->translate($item['title']) !!}

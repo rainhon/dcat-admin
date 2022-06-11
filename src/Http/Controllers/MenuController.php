@@ -40,6 +40,11 @@ class MenuController extends AdminController
                     $form->icon('icon', trans('admin.icon'))->help($this->iconHelp());
                     $form->text('uri', trans('admin.uri'));
 
+                    $form->radio('no_pjax', trans('admin.no_pjax'))->options([
+                        0 => '使用pjax',
+                        1 => '不使用pjax',
+                    ])->default(0);
+
                     if ($menuModel::withRole()) {
                         $form->multipleSelect('roles', trans('admin.roles'))->options($roleModel::all()->pluck('name', 'id'));
                     }
@@ -123,7 +128,11 @@ class MenuController extends AdminController
             $form->icon('icon', trans('admin.icon'))->help($this->iconHelp());
             $form->text('uri', trans('admin.uri'));
             $form->switch('show', trans('admin.show'));
-
+            $form->radio('no_pjax', trans('admin.no_pjax'))->options([
+                0 => '使用pjax',
+                1 => '不使用pjax',
+            ])->default(0);
+            
             if ($menuModel::withRole()) {
                 $form->multipleSelect('roles', trans('admin.roles'))
                     ->options(function () {

@@ -55,6 +55,8 @@ class Content implements Renderable
      */
     protected $config = [];
 
+    protected $disableBreadcrumb = false;
+
     /**
      * Content constructor.
      *
@@ -395,6 +397,14 @@ class Content implements Renderable
         return $this;
     }
 
+
+    public function disableBreadcrumb($disable = true)
+    {
+        $this->disableBreadcrumb = $disable;
+
+        return $this;
+    }
+
     /**
      * @return void
      */
@@ -416,6 +426,7 @@ class Content implements Renderable
             'breadcrumb'      => $this->breadcrumb,
             'configData'      => $this->applyClasses(),
             'pjaxContainerId' => Admin::getPjaxContainerId(),
+            'disableBreadcrumb' => $this->disableBreadcrumb,
         ], $this->variables);
     }
 

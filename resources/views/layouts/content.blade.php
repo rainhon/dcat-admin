@@ -1,3 +1,4 @@
+@if(!$disableBreadcrumb)
 @section('content-header')
     <section class="content-header breadcrumbs-top">
         @if($header || $description)
@@ -13,6 +14,7 @@
 
     </section>
 @endsection
+@endif
 
 @section('content')
     @include('admin::partials.alerts')
