@@ -160,7 +160,8 @@ class Menu
     public function isActive($item, ?string $path = null)
     {
         if (empty($path)) {
-            $path = trim(request()->getRequestUri(), '/');
+            $path = request()->path();
+            // $path = trim(request()->getRequestUri(), '/');
         }   
 
         if (!empty($item['uri'])) {
@@ -304,8 +305,8 @@ class Menu
     }
 
     public function clearPath($uri) {
-        // $queryIndex = strpos($uri, '?');
-        // $uri = $queryIndex ? substr($uri, 0, $queryIndex) : $uri;
+        $queryIndex = strpos($uri, '?');
+        $uri = $queryIndex ? substr($uri, 0, $queryIndex) : $uri;
         return trim($this->getPath($uri), '/');
     }
 
