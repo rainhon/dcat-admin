@@ -6,7 +6,7 @@
             <div class="navbar-header">
                 <ul class="nav navbar-nav flex-row">
                     <li class="nav-item mr-auto">
-                        <a href="{{ admin_url('/') }}" class="navbar-brand waves-effect waves-light">
+                        <a href="{{ admin_url('/') }}" data-no-pjax="1" class="navbar-brand waves-effect waves-light">
                             <span class="logo-mini">{!! config('admin.logo-mini') !!}</span>
                             <span class="logo-lg">{!! config('admin.logo') !!}</span>
                         </a>
