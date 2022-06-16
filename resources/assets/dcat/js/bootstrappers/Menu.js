@@ -14,6 +14,10 @@ export default class Menu {
             $sidebarMenuUls = $('.sidebar-menu-ul');
 
         $navbarItems.on('click', function () {
+            if($(this).data('toggle') == 'dropdown'){
+                return ;
+            }
+
             $navbarItems.removeClass('active');
             let $currentId = $(this).data('id');
             let $thisNavbarItem = $(this);
