@@ -30,7 +30,13 @@ html body {
 
 .body-bg,
 .content-wrapper {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 239, 94, 0.05) 21%, rgba(0, 117, 254, 0.05) 42%, rgba(39, 208, 145, 0.05) 68%, rgba(255, 138, 86, 0.05) 100%);
+  background: linear-gradient(135deg, 
+  rgba(255, 138, 86, 0.1) 0%,
+  rgba(39, 208, 145, 0.1) 21%, 
+  rgba(0, 117, 254, 0.1) 42%, 
+  rgba(255, 239, 94, 0.1) 68%, 
+  rgba(255, 255, 255, 0.1) 100%,
+  );
 }
 
 // 滚动条

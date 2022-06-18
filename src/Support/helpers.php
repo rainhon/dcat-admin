@@ -593,3 +593,38 @@ if (! function_exists('format_byte')) {
         return round($value, $dec).$prefix_arr[$i];
     }
 }
+
+if (! function_exists('admin_available_url')) {
+    //获取用户有权限访问的一个url
+    function admin_available_url()
+    {
+        $user = Admin::user();
+        $menuModel = config('admin.database.menu_model');
+        $nodes = (new $menuModel())->allNodes()->toArray();
+        foreach($nodes as $node) {
+            if(!$node['uri']) {
+                continue;
+            }
+            $permissionIds = $node['permission_id'] ?? null;
+            $roles = array_column(Helper::array($node['roles'] ?? []), 'slug');
+            $permissions = array_column(Helper::array($node['permissions'] ?? []), 'slug');
+    
+            if (! $permissionIds && ! $roles && ! $permissions) {
+                return admin_url($node['uri']);
+            }
+    
+            $user = Admin::user();
+    
+            if (! $user || $user->visible($roles)) {
+                return admin_url($node['uri']);
+            }
+    
+            foreach (array_merge(Helper::array($permissionIds), $permissions) as $permission) {
+                if ($user->can($permission)) {
+                    return admin_url($node['uri']);
+                }
+            }
+        }
+        return admin_url('/');;
+    }
+}

@@ -246,7 +246,7 @@
         }
 
         a.dropdown-user-link {
-          padding: 0.7rem 1rem;
+          padding: 0 1rem !important;
           display: flex;
           align-items: center;
 
@@ -411,11 +411,11 @@
       line-height: 1;
     }
 
-    .active {
-      &.nav-link {
-        background-color: rgba(0, 0, 0, 0.03);
-      }
-    }
+    // .active {
+    //   &.nav-link {
+    //     background-color: rgba(0, 0, 0, 0.03);
+    //   }
+    // }
 
     .disabled {
       &.nav-link {

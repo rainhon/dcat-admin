@@ -29,7 +29,7 @@ class Column implements Renderable
      */
     public function __construct($content, $width = 12)
     {
-        $width = $this->normalizeWidth($width);
+        // $width = $this->normalizeWidth($width);
 
         if ($content instanceof \Closure) {
             call_user_func($content, $this);

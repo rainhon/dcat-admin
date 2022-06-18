@@ -226,13 +226,13 @@ $table-bg: #eff1f7;
 body:not(.dark-mode) {
   .table-collapse {
     // box-shadow: $shadow;
-    background: $table-bg;
+    // background: $table-bg;
     margin-top: 1rem;
 
     .custom-data-table {
       border-spacing: 0;
       margin-top: 0!important;
-      background-color: $table-bg;
+      // background-color: $table-bg;
     }
 
     table.custom-data-table thead th {
